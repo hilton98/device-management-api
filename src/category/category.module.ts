@@ -21,6 +21,9 @@ import { CategoriesController } from "./controllers/category.controller";
         FindCategoriesService,
         FindCategoryService,
         DeleteCategoryService
+    ],
+    exports: [
+        CategoriesRepository
     ]
 })
 export class CategoryModule {}

@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { dataSourceOptions } from './config/data-source';
 import { CategoryModule } from './category/category.module';
+import { DeviceModule } from './device/device.module';
 
 @Module({
   imports: [
@@ -12,7 +13,8 @@ import { CategoryModule } from './category/category.module';
         dataSourceOptions(configService),
       inject: [ConfigService]
     }),
-    CategoryModule
+    CategoryModule,
+    DeviceModule
   ]
 })
 export class AppModule {}
