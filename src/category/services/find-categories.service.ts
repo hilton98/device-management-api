@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { CategoriesRepository } from "../repositories/categories.repository";
-import { FindCategoriesFiltersDto } from "../dtos/find-categories-filters";
+import { FindCategoriesFiltersDto } from "../dtos/find-categories-filters.dto";
 
 @Injectable()
 export class FindCategoriesService {

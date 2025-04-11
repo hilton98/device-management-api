@@ -3,7 +3,7 @@ import { FindCategoryService } from "../services/find-category.service";
 import { FindCategoriesService } from "../services/find-categories.service";
 import { CreateCategoryService } from "../services/create-category.service";
 import { DeleteCategoryService } from "../services/delete-category.service";
-import { FindCategoriesFiltersDto } from "../dtos/find-categories-filters";
+import { FindCategoriesFiltersDto } from "../dtos/find-categories-filters.dto";
 import { CreateCategoryDto } from "../dtos/create-category.dto";
 
 @Controller('/categories')
