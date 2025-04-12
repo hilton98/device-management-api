@@ -34,7 +34,7 @@ export class CreateDeviceService {
             return device;
         } catch (error) {
             await this.queryRunner.rollbackTransaction();
-            if (error instanceof QueryFailedError && error.message.includes('ER_DUP_ENTRY')) {
+            if (error.code === 'ER_DUP_ENTRY') {
                 throw new ConflictException(`CreateDeviceService: Existing category name.`);
             }
             if (error instanceof QueryFailedError && error.message.includes('ER_NO_REFERENCED_ROW_2')) {

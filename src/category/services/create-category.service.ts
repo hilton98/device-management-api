@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException } from "@nestjs/common";
+import { ConflictException, Injectable, InternalServerErrorException } from "@nestjs/common";
 import { CategoriesRepository } from "../repositories/categories.repository";
 import { CreateCategoryDto } from "../dtos/create-category.dto";
 
@@ -13,6 +13,9 @@ export class CreateCategoryService {
             const categoryCreated = await this.categoryRepository.save(creationData);
             return categoryCreated;   
         } catch(error) {
+            if (error.code === 'ER_DUP_ENTRY') {
+                throw new ConflictException(`CreateCategoryService: Existing category name.`);
+            }
             throw new InternalServerErrorException(`CreationCategoryService - Error saving data: ${error}`);
         }
     }
