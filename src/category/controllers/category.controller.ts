@@ -5,6 +5,7 @@ import { CreateCategoryService } from "../services/create-category.service";
 import { DeleteCategoryService } from "../services/delete-category.service";
 import { FindCategoriesFiltersDto } from "../dtos/find-categories-filters.dto";
 import { CreateCategoryDto } from "../dtos/create-category.dto";
+import { ItemRelationsDto } from "src/shared/dtos/item-relations.dto";
 
 @Controller('/categories')
 export class CategoriesController {
@@ -24,9 +25,10 @@ export class CategoriesController {
 
     @Get(':id')
     async getById(
-        @Param('id', ParseIntPipe) id: number
+        @Param('id', ParseIntPipe) id: number,
+        @Query() filters: ItemRelationsDto
     ) {
-        return await this.findCategoryService.execute(id);
+        return await this.findCategoryService.execute(id, filters);
     }
 
     @Post()

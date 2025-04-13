@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { CategoriesRepository } from "../repositories/categories.repository";
-import { CategoriesEntity } from "../entities/categories.entity";
+import { ItemRelationsDto } from "src/shared/dtos/item-relations.dto";
 
 @Injectable()
 export class FindCategoryService {
@@ -8,8 +8,8 @@ export class FindCategoryService {
         private readonly categoryRepository: CategoriesRepository,
     ) {}
 
-    async execute(id: number) {
-        const categoryFinded = await this.categoryRepository.findById(id);
+    async execute(id: number, filters?: ItemRelationsDto) {
+        const categoryFinded = await this.categoryRepository.findById(id, filters?.relations);
         if (!categoryFinded) {
             throw new NotFoundException(`FindCategoryService: Category with id ${id} not found`)
         }

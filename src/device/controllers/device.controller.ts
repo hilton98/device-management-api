@@ -5,6 +5,7 @@ import { CreateDeviceService } from "../services/create-device.service";
 import { DeleteDeviceService } from "../services/delete-device.service";
 import { FindDevicesFiltersDto } from "../dtos/find-devices-filters.dto";
 import { CreateDeviceDto } from "../dtos/create-device.dto";
+import { ItemRelationsDto } from "src/shared/dtos/item-relations.dto";
 
 @Controller('/devices')
 export class DevicesController {
@@ -24,9 +25,11 @@ export class DevicesController {
 
     @Get(':id')
     async getById(
-        @Param('id', ParseIntPipe) id: number
+        @Param('id', ParseIntPipe) id: number,
+        @Query() filters: ItemRelationsDto
+
     ) {
-        return await this.findDeviceService.execute(id);
+        return await this.findDeviceService.execute(id, filters);
     }
 
     @Post()

@@ -69,8 +69,6 @@ export class CategoriesRepository {
             whereFilters.updatedAt = new Date(updatedAt)
         }
 
-        console.log(relations)
-
         return this.repository.find({
             where: whereFilters,
             relations
