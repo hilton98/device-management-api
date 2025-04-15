@@ -1,0 +1,15 @@
+name: Call Infrastructure
+on:
+  push:
+    branches:
+      - main
+jobs:
+  notify-infra:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Infrastructure Repository
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.REPO_INFRA_PAT }}
+          repository: hilton98/infra-dm
+          event-type: update-dm-api
