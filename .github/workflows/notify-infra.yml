@@ -1,10 +1,13 @@
 name: Call Infrastructure
+
 on:
   push:
     branches:
       - main
+
 jobs:
-  notify-infra:
+  first-commit:
+    if: github.event.head_commit.message == 'first commit'
     runs-on: ubuntu-latest
     steps:
       - name: Call Infrastructure Repository
@@ -12,4 +15,15 @@ jobs:
         with:
           token: ${{ secrets.REPO_INFRA_PAT }}
           repository: hilton98/infra-dm
-          event-type: update-dm-api
+          event-type: create-structure-dm-api
+
+  deploy:
+    if: github.event.head_commit.message != 'first commit'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Infrastructure Repository
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.REPO_INFRA_PAT }}
+          repository: hilton98/infra-dm
+          event-type: deploy-dm-api
