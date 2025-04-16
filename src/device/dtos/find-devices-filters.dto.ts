@@ -2,6 +2,18 @@ import { Transform, Type } from "class-transformer";
 import { IsArray, IsInt, IsOptional, IsPositive, IsString, Length, Matches, MaxLength } from "class-validator";
 
 export class FindDevicesFiltersDto {
+
+    @IsOptional()
+    @Type(() => Number)
+    @IsInt()
+    @IsPositive()
+    page?: number
+
+    @IsOptional()
+    @Type(() => Number)
+    @IsInt()
+    @IsPositive()
+    itemsPerPage?: number;
     
     @IsOptional()
     @Type(() => Number)

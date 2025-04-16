@@ -11,7 +11,8 @@ export class FindCategoriesService {
     async execute(
         filters: FindCategoriesFiltersDto
     ) {
-        const categoriesFinded = await this.categoryRepository.find(filters);
-        return categoriesFinded;
+        const [ categories, total ] = await this.categoryRepository.find(filters);
+        const response = { categories, total }
+        return response;
     }
 }

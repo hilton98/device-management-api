@@ -1,4 +1,6 @@
 export interface DeviceFilters {
+    page?: number,
+    itemsPerPage?: number,
     id?: number;    
     categoryId?: number;
     categoryIds?: number[];

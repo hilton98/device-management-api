@@ -11,7 +11,8 @@ export class FindDevicesService {
     async execute(
         filters: FindDevicesFiltersDto
     ) {
-        const devicesFinded = await this.devicesRepository.find(filters);
-        return devicesFinded;
+        const [ devices, total ] = await this.devicesRepository.find(filters);
+        const response = { devices, total }
+        return response;
     }
 } 

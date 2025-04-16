@@ -1,4 +1,6 @@
 export interface CategoryFilters {
+    page?: number,
+    itemsPerPage?: number,
     id?: number,
     name?: string,
     lessThanCreatedAt?: string,

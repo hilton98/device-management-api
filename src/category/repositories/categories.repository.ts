@@ -24,8 +24,10 @@ export class CategoriesRepository {
         )
     }
 
-    find(filters: CategoryFilters): Promise<CategoriesEntity[]> {
+    find(filters: CategoryFilters): Promise<[CategoriesEntity[], number]> {
         const {
+            page,
+            itemsPerPage,
             id,
             name,
             lessThanCreatedAt,
@@ -38,6 +40,9 @@ export class CategoriesRepository {
         } = filters;
 
         const whereFilters: FindOptionsWhere<CategoriesEntity> = {};
+        const isPaginated = page && itemsPerPage;
+        const skip = isPaginated ? (page - 1) * itemsPerPage : undefined;
+        const take = isPaginated ? itemsPerPage : undefined;
 
         if (id) {
             whereFilters.id = id;
@@ -69,9 +74,11 @@ export class CategoriesRepository {
             whereFilters.updatedAt = new Date(updatedAt)
         }
 
-        return this.repository.find({
+        return this.repository.findAndCount({
             where: whereFilters,
-            relations
+            relations,
+            skip,
+            take
         })    
 
     }

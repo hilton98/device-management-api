@@ -24,8 +24,10 @@ export class DevicesRepository {
         )
     }
 
-    find(filters: DeviceFilters): Promise<DevicesEntity[]> {
+    find(filters: DeviceFilters): Promise<[DevicesEntity[], number]> {
         const {
+            page,
+            itemsPerPage,
             id,
             categoryId,
             categoryIds,
@@ -38,6 +40,9 @@ export class DevicesRepository {
 
         const whereFilters: FindOptionsWhere<DevicesEntity> = {};
         const relations = filters.relations ? [...filters.relations] : [];
+        const isPaginated = page && itemsPerPage;
+        const skip = isPaginated ? (page - 1) * itemsPerPage : undefined;
+        const take = isPaginated ? itemsPerPage : undefined;
 
         if (id) {
             whereFilters.id = id;
@@ -82,9 +87,11 @@ export class DevicesRepository {
             whereFilters.partNumber = In(partNumbers)
         }
 
-        return this.repository.find({
+        return this.repository.findAndCount({
             where: whereFilters,
-            relations
+            relations,
+            skip,
+            take
         })
     }
 

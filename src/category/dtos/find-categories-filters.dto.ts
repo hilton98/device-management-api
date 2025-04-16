@@ -14,6 +14,18 @@ export class FindCategoriesFiltersDto {
     @Type(() => Number)
     @IsInt()
     @IsPositive()
+    page?: number
+
+    @IsOptional()
+    @Type(() => Number)
+    @IsInt()
+    @IsPositive()
+    itemsPerPage?: number;
+
+    @IsOptional()
+    @Type(() => Number)
+    @IsInt()
+    @IsPositive()
     id?: number;
     
     @IsOptional()
